@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+jsonify = "*"
+importlib-resources = "*"
+flask-restful = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
+flask-bcrypt = "*"
+flask-jwt-extended = "*"
+gunicorn = "*"
+faker = "*"
+ipdb = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+
+[dev-packages]
+ipdb = "*"
+faker = "*"
+
+[requires]
+python_version = "3.9"

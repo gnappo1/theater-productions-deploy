@@ -41,9 +41,12 @@ def create_app():
 
     #* Instantiate your flask app
     app = Flask(
-        __name__
-        #! Add configuration for static files
+        __name__,
+        static_url_path='',
+        static_folder='../client/build',
+        template_folder='../client/build'
     )
+
     #* DotEnv wrapper
     load_dotenv()
     #* Configuration settings
@@ -110,24 +113,30 @@ def create_app():
 
     def register_routes():
         @app.route("/")
-        def welcome():
-            #! You can use a template for the landing page of your api-only flask app
-            #! or you can just return a string
-            #* This landing page is not of great importance, but it's nice to have one
-            #* The real one will live inside the client folder
-            return """
-                <h1>Welcome to our Theater!</h1>
-                <figure>
-                    <img style="width: 80vw; height: 70vh;" src="https://images.unsplash.com/photo-1503095396549-807759245b35?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=kyle-head-p6rNTdAPbuk-unsplash.jpg" alt="Theater">
-                    <figcaption>
-                        <span class="caption">A theater red backdrop, with the shadows of three actors in front of it.</span>
-                        <i class="photo-credit">Photo by <a href="https://unsplash.com/it/@kyleunderscorehead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kyle Head</a> on <a href="https://unsplash.com/photos/p6rNTdAPbuk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></i>
-                    </figcaption>
-                </figure>
-                <p>Check out our <a href="/api/v1/productions">productions</a> and <a href="/api/v1/crew-members">crew members</a>!</p>
-            """
+        # def welcome():
+            # #! You can use a template for the landing page of your api-only flask app
+            # #! or you can just return a string
+            # #* This landing page is not of great importance, but it's nice to have one
+            # #* The real one will live inside the client folder
+            # return """
+            #     <h1>Welcome to our Theater!</h1>
+            #     <figure>
+            #         <img style="width: 80vw; height: 70vh;" src="https://images.unsplash.com/photo-1503095396549-807759245b35?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=kyle-head-p6rNTdAPbuk-unsplash.jpg" alt="Theater">
+            #         <figcaption>
+            #             <span class="caption">A theater red backdrop, with the shadows of three actors in front of it.</span>
+            #             <i class="photo-credit">Photo by <a href="https://unsplash.com/it/@kyleunderscorehead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kyle Head</a> on <a href="https://unsplash.com/photos/p6rNTdAPbuk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></i>
+            #         </figcaption>
+            #     </figure>
+            #     <p>Check out our <a href="/api/v1/productions">productions</a> and <a href="/api/v1/crew-members">crew members</a>!</p>
+            # """
         
         #! Add static routes to serve React's content
+        @app.route('/')
+        @app.route('/productions/<int:id>')
+        @app.route('/productions/<int:id>/edit')
+        @app.route('/productions/new')
+        def index(id=0):
+            return render_template("index.html")
 
 
     # Register error handlers, before request function, and routes
